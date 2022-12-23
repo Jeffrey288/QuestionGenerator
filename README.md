@@ -15,6 +15,9 @@ Note 2: i'm planning to do 1 per day as an exercise to expand my website
 - improve the outlook of the question section
 - animate the collapsible
 - add a "printable version", e.g. https://smallbusiness.chron.com/make-webpage-printable-47225.html
+- add non-alert error messages when question type is not selected
+- blur the site title when hovering
+- molecular simulator (at another date)
 ```
 
 ### Using
