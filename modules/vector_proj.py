@@ -64,7 +64,7 @@ def vector_proj():
 It is given that $\vec<<OA>>={printVec(A)}$,  $\vec<<OB>>={printVec(B)}$,  $\vec<<OC>>={printVec(C)}$ and $\vec<<OD>>={printVec(E)}$. $A$, $B$ and $C$ lie on the same plane $\Pi$, and the projection of $D$ on $\Pi$ is $E$.
 """,
 "q1":rf"Evaluate $\vec<<AB>>\times\vec<<BC>>$.",
-"q2":rf"Find $\vec<<AE>>\cdot(\vec<<AB>>\times\vec<<BC>>)$.",
+"q2":rf"Find $\vec<<AE>>$.",
 "q3":rf"Find the distance between $D$ and $\Pi$.",
 "q4":rf"Find the angle between $AE$ and $\Pi$.",
 "q5":rf"$D$ is reflected about the plane $\Pi$ to $F$. Find $\vec<<OF>>$.",
