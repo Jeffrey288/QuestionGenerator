@@ -18,6 +18,8 @@ Note 2: i'm planning to do 1 per day as an exercise to expand my website
 - add non-alert error messages when question type is not selected
 - blur the site title when hovering
 - molecular simulator (at another date)
+- 3d thingy like this: https://cssbattle.dev/learn
+- donut
 ```
 
 ### Using
