@@ -23,5 +23,8 @@ Note 2: i'm planning to do 1 per day as an exercise to expand my website
 ### Using
 - flask
 - bootstrap
+- markdown
+- ajax (using jquery)
+- mathjax
 
 nothing much really
