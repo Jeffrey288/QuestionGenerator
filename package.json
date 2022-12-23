@@ -1,0 +1,25 @@
+{
+  "name": "questiongenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeffrey288/QuestionGenerator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jeffrey288/QuestionGenerator/issues"
+  },
+  "homepage": "https://github.com/Jeffrey288/QuestionGenerator#readme",
+  "type": "module",
+  "dependencies": {
+    "jquery": "^3.6.3",
+    "marked": "^4.2.4"
+  }
+}
