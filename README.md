@@ -22,6 +22,7 @@ Note 2: i'm planning to do 1 per day as an exercise to expand my website
 - donut
 - figuring out what is apache
 - figuring what the hell is a secret key
+- httpSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS (not plain text)
 ```
 
 ### Using
