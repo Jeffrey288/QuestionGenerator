@@ -18,7 +18,13 @@ $( function() {
     $('button#gen-q-btn').on('click', function(e) {
         selection = document.querySelector("#select-question-type > .dropdown-toggle").innerHTML;
         if (!(selection in question_type)) {
-            alert("Please choose a question type.");
+            alert_elm = document.querySelector("#question-alert");
+            alert_elm.classList.add("alert-danger"); alert_elm.classList.remove("alert-success");
+            alert_elm.querySelector("div").innerHTML = "Please choose a valid question type!";
+            alert_elm.querySelector("button").addEventListener("click", function() {alert_elm.classList.remove("alert-fade");})
+            console.log(alert_elm);
+            alert_elm.classList.add("alert-fade");
+            setTimeout(function() {alert_elm.classList.remove("alert-fade");}, 3000);
             return;
         }
         q_type = question_type[selection];
@@ -48,6 +54,12 @@ $( function() {
                 part.querySelector(".part-question-bar").addEventListener("click", function(e) {
                     part.classList.toggle("active");
                     console.log("ey");
+                    ans = part.querySelector(".part-answer-wrapper")
+                    if (ans.style.maxHeight){
+                        ans.style.maxHeight = null;
+                    } else {
+                        ans.style.maxHeight = ans.scrollHeight + "px";
+                    }
                 });
             });
         

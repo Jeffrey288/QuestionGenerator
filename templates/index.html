@@ -14,7 +14,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand navbar-dark bg-dark" id="main-nav">
-            <div id="site-name-wrapper"><a id="site-name" href="#" data-text="Rainbows">Rainbows</a></div>
+            <div id="site-name-wrapper"><a id="site-name" href="#">Rainbows</a></div>
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
@@ -51,6 +51,10 @@
                 <button id="gen-q-btn" class="btn btn-outline-success btn-sm">Generate a Question!</button>
             </div>
         </div>
+        <div id="question-alert" class="alert alert-danger py-2 my-3 w-100" role="alert">
+            <div>Please choose a valid question type!</div>
+            <button class="btn-close btn-sm"></button>
+        </div>
 
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template -->
         <template id="qna-template">
@@ -61,7 +65,9 @@
                         <span class="part-question"></span>
                     </div>
                 </div>
-                <p class="part-answer"></p>
+                <div class="part-answer-wrapper">
+                    <p class="part-answer"></p>
+                </div>
             </div>
         </template>
 

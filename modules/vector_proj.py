@@ -113,7 +113,7 @@ The distance $=\left|\vec<<ED>>\right|=\sqrt<<{printSquare((E-D)[0])}+{printSqua
 The angle between $\vec<<AE>>$ on $\vec<<AB>>\times\vec<<BC>>$, which we denote as $\theta$, is given by
 $$\begin<<aligned>>
 \cos<<\theta>> &= \dfrac<<\vec<<AE>>\cdot\left(\vec<<AB>>\times\vec<<BC>>\right)>><<\left|\vec<<AE>>\right|\left|\vec<<AB>>\times\vec<<BC>>\right|>> \\
-&= \dfrac<<({int((D-A)[0])})({cross[0]})+({int((D-A)[1])})({cross[1]})+({int((D-A)[2])})({cross[2]})>><<\sqrt<<{printSquare(cross[0])}+{printSquare(cross[1])}+{printSquare(cross[2])}>>\sqrt<<{printSquare((D-A)[0])}+{printSquare((D-A)[1])}+{printSquare((D-A)[2])}>>>>({printVec(cross)}) \\
+&= \dfrac<<({int((D-A)[0])})({cross[0]})+({int((D-A)[1])})({cross[1]})+({int((D-A)[2])})({cross[2]})>><<\sqrt<<{printSquare(cross[0])}+{printSquare(cross[1])}+{printSquare(cross[2])}>>\sqrt<<{printSquare((D-A)[0])}+{printSquare((D-A)[1])}+{printSquare((D-A)[2])}>>>> \\
 &\approx {cos_angle:.6f}\\
     \theta&= {angle:.6f}^\circ
 \end<<aligned>>$$ 
