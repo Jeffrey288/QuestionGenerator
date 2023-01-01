@@ -6,6 +6,10 @@ Running instance: http://jeffrey288.pythonanywhere.com/
 Note 1: no, i'm not using issues because it's freaking annoying \
 Note 2: i'm planning to do 1 per day as an exercise to expand my website
 ```
+- set up SQLite to store questions
+- question editor, viewer
+- login system
+
 - set up SQLite to store feedback
 - add a form to send feedback to the webapp
 - add a script to automatically pull code from github
