@@ -10,7 +10,8 @@ MathJax = {
 };
   
 const question_type = {
-    "Vector Projection": "vector_proj"
+    "Vector Projection": "vector_proj",
+    "System of Equations": "system_of_eq"
 }
 $( function() {
     

@@ -148,12 +148,7 @@ if __name__ == "__main__":
     #         temp[k] = markdown(temp[k])
     # print(temp)
 
-    import regex as re
-    def temp(match_obj):
-        print(match_obj, "\n-------\n")
-        print(match_obj.group(2), "\n-------\n")
-        return rf"\({match_obj.group(2)}\)"
-    print(re.sub(r"(\$\$)([^\$]+)(\$\$)", temp, r"""<p><strong>Answer</strong>: $2\mathbf{i}+2\mathbf{j}+2\mathbf{k}$</p>
+    target = r"""<p><strong>Answer</strong>: $2\mathbf{i}+2\mathbf{j}+2\mathbf{k}$</p>
 <p>$\overrightarrow{ED}$ is the projection of $\overrightarrow{AE}$ on $\overrightarrow{AB}\times\overrightarrow{BC}$, so
 $$\begin{aligned}
 \overrightarrow{ED} &amp;= \dfrac{\overrightarrow{AE}\cdot\left(\overrightarrow{AB}\times\overrightarrow{BC}\right)}{\left|\overrightarrow{AB}\times\overrightarrow{BC}\right|^2}\left(\overrightarrow{AB}\times\overrightarrow{BC}\right) \
@@ -166,7 +161,45 @@ $$\begin{aligned}
     &amp;= (-\mathbf{i}+7\mathbf{k}) - (-3\mathbf{i}-2\mathbf{j}+5\mathbf{k}) \
         &amp;= 2\mathbf{i}+2\mathbf{j}+2\mathbf{k}
 \end{aligned}$$ </p>
-"""))
+"""
+    import re
+    
+    singleList = re.findall(r"[^\$]\$([^\$]+)\$(?!\$)", target)
+    doubleList = re.findall(r"\${2}([^\$]+)\${2}", target)
+    print(singleList)
+    subbed = re.sub(r"([^\$]\$)([^\$]+)(\$)(?!\$)", r"\1PLACEHOLDER\3", target)
+    subbed = re.sub(r"\${2}([^\$]+)\${2}", r"$$PLACEHOLDER2$$", subbed)
+    print(subbed)
+    for item in singleList:
+        subbed = subbed.replace("$PLACEHOLDER$", "$"+item+"$", 1)
+    for item in doubleList:
+        subbed = subbed.replace("$$PLACEHOLDER2$$", "$$"+item+"$$", 1)
+    print(subbed)
+    print(subbed == target)
+    # markdown
+
+
+
+    
+    import regex as re
+    def temp(match_obj):
+        print(match_obj, "\n-------\n")
+        print(match_obj.group(2), "\n-------\n")
+        return rf"\({match_obj.group(2)}\)"
+#     print(re.sub(r"(\$\$)([^\$]+)(\$\$)", temp, r"""<p><strong>Answer</strong>: $2\mathbf{i}+2\mathbf{j}+2\mathbf{k}$</p>
+# <p>$\overrightarrow{ED}$ is the projection of $\overrightarrow{AE}$ on $\overrightarrow{AB}\times\overrightarrow{BC}$, so
+# $$\begin{aligned}
+# \overrightarrow{ED} &amp;= \dfrac{\overrightarrow{AE}\cdot\left(\overrightarrow{AB}\times\overrightarrow{BC}\right)}{\left|\overrightarrow{AB}\times\overrightarrow{BC}\right|^2}\left(\overrightarrow{AB}\times\overrightarrow{BC}\right) \
+# &amp;= \dfrac{(2)(24)+(2)(16)+(2)(-40)}{24^2+16^2+(-40)^2}(24\mathbf{i}+16\mathbf{j}-40\mathbf{k}) \
+# &amp;= -3\mathbf{i}-2\mathbf{j}+5\mathbf{k}
+# \end{aligned}$$
+# Hence,
+# $$\begin{aligned}
+# \overrightarrow{AE} &amp;= \overrightarrow{AD} - \overrightarrow{ED} \
+#     &amp;= (-\mathbf{i}+7\mathbf{k}) - (-3\mathbf{i}-2\mathbf{j}+5\mathbf{k}) \
+#         &amp;= 2\mathbf{i}+2\mathbf{j}+2\mathbf{k}
+# \end{aligned}$$ </p>
+# """))
 
     
 
