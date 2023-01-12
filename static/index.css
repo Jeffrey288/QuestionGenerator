@@ -162,6 +162,10 @@
     align-content: space-around;
 }
 
+.part-question-bar > div {
+    display: flex;
+}
+
 .part-question-bar:hover, .part.active > .part-question-bar {
     background: #DCDCDC;
     cursor: pointer;

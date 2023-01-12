@@ -28,22 +28,23 @@ def generate_question():
 
     for k in md.keys():
         if (k != "num_questions"):
-
+            md[k] = md[k].rstrip('\n ')
             singleList = re.findall(r"[^\$]\$([^\$]+)\$(?!\$)", md[k])
             doubleList = re.findall(r"\${2}([^\$]+)\${2}", md[k])
-            subbed = re.sub(r"([^\$]\$)([^\$]+)(\$)(?!\$)", r"\1PLACEHOLDER\3", md[k])
-            subbed = re.sub(r"\${2}([^\$]+)\${2}", r"$$PLACEHOLDER2$$", subbed)
-            subbed = markdown(subbed)
+            md[k] = re.sub(r"([^\$]\$)([^\$]+)(\$)(?!\$)", r"\1PLACEHOLDER\3", md[k])
+            md[k] = re.sub(r"\${2}([^\$]+)\${2}", r"$$PLACEHOLDER2$$", md[k])
+            md[k] = markdown(md[k])
             for item in singleList:
-                subbed = subbed.replace("$PLACEHOLDER$", "$"+item+"$", 1)
+                md[k] = md[k].replace("$PLACEHOLDER$", "$"+item+"$", 1)
             for item in doubleList:
-                subbed = subbed.replace("$$PLACEHOLDER2$$", "$$"+item+"$$", 1)
-            md[k] = subbed
+                md[k] = md[k].replace("$$PLACEHOLDER2$$", "$$"+item+"$$", 1)
 
+            md[k] = md[k].strip('\n ')
             # md[k] = markdown(md[k].strip('\n ')) # accidentally removes a slash from a double slash
             # md[k] = re.sub(r"(\$\$)([^\$]+)(\$\$)", lambda x: re.sub(r'(\\)[^a-zA-Z0-9]', r'\\\\', x.group(2)), md[k]) # double \\ only in $$
             # if (k[0] == 'q'):
-            #     md[k] = re.sub(r"(^<p>)(.*)(</p>$)", lambda x: x.group(2), md[k])
+            md[k] = re.sub(r"(^<span>)(.*)(</span>$)", r"\2", md[k])
+            md[k] = re.sub(r"(^<p>)(.*)(</p>$)", r"\2", md[k])
             md[k] = md[k].replace("$", "\\$")
     return md
 

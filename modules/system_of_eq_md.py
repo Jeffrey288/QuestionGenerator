@@ -157,11 +157,11 @@ print(roots)
 q_a = process("If $(E)$ has a unique solution, find the range of values of $a$.")
 f.write("\n\n(a)\t" + q_a)
 a_a = process(
-rf"""$(E)$ has a unique solution \
-⇔ $\Delta\neq0$ \
-⇔ ${print_det(M)}\neq0$ \
-⇔ ${latex(M.det())}\neq0$ \
-⇔ ${latex(factor(M.det()))}\neq0$ \
+rf"""$(E)$ has a unique solution     
+⇔ $\Delta\neq0$     
+⇔ ${print_det(M)}\neq0$     
+⇔ ${latex(M.det())}\neq0$     
+⇔ ${latex(factor(M.det()))}\neq0$     
 ⇔ $a\neq{roots[0]}$ and $a\neq{roots[1]}$""")
 f.write("\n\n" + a_a)
 # solution to (b): M * X = rhs -> X = Minv * rhs
@@ -192,8 +192,8 @@ print("══════════════════════ Part (
 sol_properties = [[] for _ in roots]
 sol = [[] for _ in roots]
 
-q_c = rf"""For each of the following cases, find the range of values of b such that $(E)$ is consistent, and solve $(E)$ for such values of $b$ (if they exist). \
-(i) $a={roots[0]}$\
+q_c = rf"""For each of the following cases, find the range of values of b such that $(E)$ is consistent, and solve $(E)$ for such values of $b$ (if they exist).  \
+(i) $a={roots[0]}$ \
 (ii) $a={roots[1]}$ 
 """
 a_c = ""
@@ -254,7 +254,7 @@ for i, root in enumerate(roots):
             print("X =", X, ", Y =", Y, ", Z =", Z, ", t is real number")
             sol_properties[i].append(Root.ONE)
     
-        text += rf"Therefore, the solution set is $\left\<<\left({latex(together(X))},\:{latex(together(Y))},\:{latex(together(Z))}\right):".replace("frac", "dfrac") +\
+        text += rf"Therefore, the solution set is $\left\<<\left({latex(together(X))},\:{latex(together(Y))},\:{latex(together(Z))}\right):".replace("frac", "dfrac") + \
             rf"{'s,t' if (H[1, 1] == 0 and H[1, 2] == 0) else 't'}\in\mathbb<<R>>\right\>>$." + "\n\n"
     sol[i] = [bval, (X, Y, Z)]
 
@@ -308,7 +308,7 @@ if d_idx is not None:
     q_d = process(rf"Find the {'greatest' if (d_sub_expr.coeff(t, n=2) < 0) else 'least'} value of ${latex(d_expr)}$, where $x, y, z$ are real numbers satisfying" + "\n\n$"
      + print_sys(d_sys).replace("frac", "dfrac") + "$.")
     double_slash = r"\\"
-    a_d = process(rf"""The given system is obtained by substituting $a={roots[d_idx]}$ and $b={latex(d_b)}$ into $(E)$.\
+    a_d = process(rf"""The given system is obtained by substituting $a={roots[d_idx]}$ and $b={latex(d_b)}$ into $(E)$. \
 Hence, by putting $x={latex(together(d_sols[0]))}$, $y={latex(together(d_sols[1]))}$ and $z={latex(together(d_sols[2]))}$ into the given expression, we have
 $$\begin<<aligned>>
     {latex(d_expr)}&={latex(d_sub_expr_1)}
@@ -367,13 +367,13 @@ if e_idx is not None:
     print(e_disc)
 
     q_e = process(rf"Suppose that a real solution of ${print_sys(e_sys)}$ satisfies ${latex(e_expr_lhs)}={latex(e_expr_rhs)}$, where $b\in\mathbb<<R>>$. Find the range of values of $b$.")
-    a_e = process(rf"""The given system is obtained by substituting $a={roots[e_idx]}$ into $(E)$.\
-Hence, by putting $x={latex(together(e_sols[0]))}$, $y={latex(together(e_sols[1]))}$ and $z={latex(together(e_sols[2]))}$ into the given equation, we have\
-${latex(e_expr_lhs.subs(x, e_sols[0]).subs(y, e_sols[1]).subs(z, e_sols[2]))}={latex(e_expr_rhs)}$,\
-or ${latex(collect(e_sub_expr, t))}=0$.\
-Since the above equation has real solutions, we have\
-$\Delta={latex(UnevaluatedExpr(e_sub_expr.coeff(t, n=1)) ** 2 - 4 * UnevaluatedExpr(e_sub_expr.coeff(t, n=0)) * UnevaluatedExpr(e_sub_expr.coeff(t, n=2)))}>0$\
-or ${latex(e_disc)}\geq0$\
+    a_e = process(rf"""The given system is obtained by substituting $a={roots[e_idx]}$ into $(E)$. \
+Hence, by putting $x={latex(together(e_sols[0]))}$, $y={latex(together(e_sols[1]))}$ and $z={latex(together(e_sols[2]))}$ into the given equation, we have \
+${latex(e_expr_lhs.subs(x, e_sols[0]).subs(y, e_sols[1]).subs(z, e_sols[2]))}={latex(e_expr_rhs)}$, \
+or ${latex(collect(e_sub_expr, t))}=0$. \
+Since the above equation has real solutions, we have \
+$\Delta={latex(UnevaluatedExpr(e_sub_expr.coeff(t, n=1)) ** 2 - 4 * UnevaluatedExpr(e_sub_expr.coeff(t, n=0)) * UnevaluatedExpr(e_sub_expr.coeff(t, n=2)))}>0$ \
+or ${latex(e_disc)}\geq0$ \
 {result}
 """.replace("frac", "dfrac"))
  
@@ -430,9 +430,9 @@ $\begin<<cases>>\begin<<array>><<rrr>>{(backslash*2).join([(lambda x:"".join(x[:
 """.replace("frac", "dfrac"))
     a_f = process(rf"""
 The first three equations of the given system is obtained by subtituting $a={roots[f_idx]}$ and $b={latex(f_b)}$ into $(E)$.
-Hence, by putting $x={latex(together(f_sols[0]))}$, $y={latex(together(f_sols[1]))}$ and $z={latex(together(f_sols[2]))}$ into the fourth equation, we have\
-${latex(f_expr_lhs.subs(x, f_sols[0]).subs(y, f_sols[1]).subs(z, f_sols[2]))}={latex(f_expr_rhs)}$,\
-or ${latex(collect(f_sub_expr, t))}=0$.\
+Hence, by putting $x={latex(together(f_sols[0]))}$, $y={latex(together(f_sols[1]))}$ and $z={latex(together(f_sols[2]))}$ into the fourth equation, we have \
+${latex(f_expr_lhs.subs(x, f_sols[0]).subs(y, f_sols[1]).subs(z, f_sols[2]))}={latex(f_expr_rhs)}$, \
+or ${latex(collect(f_sub_expr, t))}=0$. \
 Solving, we have {result}
 """.replace("frac", "dfrac"))
 
@@ -463,9 +463,9 @@ else:
 print(g_coeffs, g_rhs, g_equal)
 
 q_g = process(rf"Is the following system of linear equations consistent? Explain your answer." + "\n" + rf"$${print_sys(g_sys.row_insert(3, Matrix([g_coeffs + [g_rhs]])))}$$")
-a_g = process(rf"""The first three equations of the given system is obtained by subtituting $a={g_a}$ and $b={latex(g_b)}$ into $(E)$.\
-Hence, $(x,y,z)=\left({",".join([latex(sol) for sol in g_sol])}\right)$ by (a).\
-Substituting $(x,y,z)$ into the fourth equation, we find that the left {"matches" if g_equal else "does not match"} the right.\
+a_g = process(rf"""The first three equations of the given system is obtained by subtituting $a={g_a}$ and $b={latex(g_b)}$ into $(E)$. \
+Hence, $(x,y,z)=\left({",".join([latex(sol) for sol in g_sol])}\right)$ by (a). \
+Substituting $(x,y,z)$ into the fourth equation, we find that the left {"matches" if g_equal else "does not match"} the right. \
 Hence, the system is {"consistent" if g_equal else "inconsistent"}.
 """.replace("frac", "dfrac"))
 
