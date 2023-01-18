@@ -1,3 +1,11 @@
+#main-nav {
+    z-index: 100000;
+}
+
+.nav-item {
+    padding: 0px 10px;
+}
+
 #question {
     background-color: lightcyan;
     padding: 10px;

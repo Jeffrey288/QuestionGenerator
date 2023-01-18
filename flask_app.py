@@ -15,6 +15,14 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/projects')
+def projects():
+    return render_template('projects.html')
+
+@app.route('/question-generator')
+def question_generator():
+    return render_template('question-generator.html')
+
 @app.route('/generate-question', methods=['GET'])
 def generate_question():
     print(request.args)

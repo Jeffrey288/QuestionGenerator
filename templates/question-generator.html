@@ -1,0 +1,43 @@
+{% extends 'base-template.html' %}
+
+{% block content %}
+<h1>Question Generator</h1>
+<p>Please choose a question type and click "Generate a Question!" to generate a question. :D</p>
+<div class="row">
+    <div class="col-sm-auto dropdown" id="select-question-type">
+        <button class="btn btn-outline-primary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Question Type
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Vector Projection</a>
+            <a class="dropdown-item" href="#">System of Equations</a>
+        </div>
+    </div>
+    <div class="col-sm-auto">
+        <button id="gen-q-btn" class="btn btn-outline-success btn-sm">Generate a Question!</button>
+    </div>
+</div>
+<div id="question-alert" class="alert alert-danger py-2 my-3 w-100" role="alert">
+    <div>Please choose a valid question type!</div>
+    <button class="btn-close btn-sm"></button>
+</div>
+
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template -->
+<template id="qna-template">
+    <div class="part">
+        <div class="part-question-bar">
+            <div>
+                <div class="part-question-no"></div>
+                <div class="part-question"></div>
+            </div>
+        </div>
+        <div class="part-answer-wrapper">
+            <p class="part-answer"></p>
+        </div>
+    </div>
+</template>
+
+<div id="question">
+    Empty Question!
+</div>
+{% endblock %}
