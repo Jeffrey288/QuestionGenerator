@@ -1,6 +1,7 @@
 from sympy import *
 import random
 from enum import Enum
+import numpy as np
 class Root(Enum):
     ALL = 1
     NONE = 2
@@ -12,75 +13,78 @@ a = symbols('a')
 b = symbols('b')
 x, y, z, s, t = symbols('x y z s t')
 
-def process(text): return text.replace("<<", "{").replace(">>", "}")
-
-def swap(M, a, b): temp = M[a, :]; M[a, :] = M[b, :]; M[b, :] = temp
-
-def row(M):
-    first = False
-    arglist = ["" for _ in range(5)] + ["=", latex(M[0, 3])]
-    if (M[0, 0] == 0): pass
-    else:
-        first = True
-        X = Poly(M[0, 0], a)
-        if (abs(M[0, 0]) == 1):
-            arglist[0] = "x" if M[0, 0] > 0 else "-x"
-        elif (len(X.terms()) == 1):
-            arglist[0] = f"{latex(M[0, 0])}x"
-        else:
-            arglist[0] = f"({latex(M[0, 0])})x"
-    Y = Poly(M[0, 1], a)
-    if (M[0, 1] == 0): pass
-    elif (abs(M[0, 1]) == 1):
-        arglist[1:3] = ["-", "y"] if (M[0, 1] < 0) else ["+" if first else "", "y"]
-    elif (len(Y.terms()) == 1):
-        arglist[1:3] = ["-", latex(-M[0, 1])+"y"] if (Y.terms()[0][1] < 0) else ["+", latex(M[0, 1])+"y"]
-    else:
-        arglist[1:3] = ["+" if first else "", f"({latex(M[0, 1])})y"]
-    if (M[0, 1] != 0): first = True
-    Z = Poly(M[0, 2], a)
-    if (M[0, 2] == 0): pass
-    elif (abs(M[0, 2]) == 1):
-        arglist[3:5] = ["-", "z"] if (M[0, 2] < 0) else ["+" if first else "", "z"]
-    elif (len(Z.terms()) == 1):
-        arglist[3:5] = ["-", latex(-M[0, 2])+"z"] if (Z.terms()[0][1] < 0) else ["+", latex(M[0, 2])+"z"]
-    else:
-        arglist[3:5] = ["+" if first else "", f"({latex(M[0, 2])})z"]
-    return "&".join(arglist)
-
-def print_matrix(M):
-    return "\\\\".join([row(M[r, :]) for r in range(shape(M)[0])])
-
-def print_sys(M):
-    temp = print_matrix(M)
-    return rf"\begin<<cases>>\begin<<array>><<rrrrrrr>>{temp}\end<<array>>\end<<cases>>"
-
-
-def print_det(M):
-    return rf"\left|{latex(M)[6:-7]}\right|"
-
-def print_aug(M):
-    return rf"\left(\begin<<array>><<ccc|c>>{latex(M)[6+14:-7-12]}\end<<array>>\right)"
-
-def row_reduce(h0):
-    # "row reduction"
-    h = h0[:, :]
-    if not (h[0, 0] == 0 and h[1, 0] == 0 and h[2, 0]): # if first row all 0, then we don't need to row reduce
-        if (h[0, 0] == 0): 
-            if h[1, 0] == 0: swap(h, 0, 2) # we made sure that h[2, 0] is not 0
-            else: swap(h, 0, 1)
-        if h[1, 0] != 0: h[1, :] = - h[1, 0] * h[0, :] + h[0, 0] * h[1, :]
-        if h[2, 0] != 0: h[2, :] = - h[2, 0] * h[0, :] + h[0, 0] * h[2, :]
-    if not (h[1, 1] == 0 and h[2, 1] == 0): 
-        if h[1, 1] == 0: swap(h, 1, 2)
-        if h[2, 1] != 0: h[2, :] = - h[1, 1] * h[2, :] + h[2, 1] * h[1, :]
-    elif not (h[1, 2] == 0 and h[2, 2] == 0):
-        if h[1, 2] == 0: swap(h, 1, 2)
-        if h[2, 2] != 0: h[2, :] = - h[1, 2] * h[2, :] + h[2, 2] * h[1, :]
-    return h
-
 def system_of_eq():
 
+    # -------------------------------------HELPER FUNCTIONS------------------------------------------------
+    def process(text): return text.replace("<<", "{").replace(">>", "}")
+
+    def swap(M, a, b): temp = M[a, :]; M[a, :] = M[b, :]; M[b, :] = temp
+
+    def row(M):
+        first = False
+        arglist = ["" for _ in range(5)] + ["=", latex(M[0, 3])]
+        if (M[0, 0] == 0): pass
+        else:
+            first = True
+            X = Poly(M[0, 0], a)
+            if (abs(M[0, 0]) == 1):
+                arglist[0] = "x" if M[0, 0] > 0 else "-x"
+            elif (len(X.terms()) == 1):
+                arglist[0] = f"{latex(M[0, 0])}x"
+            else:
+                arglist[0] = f"({latex(M[0, 0])})x"
+        Y = Poly(M[0, 1], a)
+        if (M[0, 1] == 0): pass
+        elif (abs(M[0, 1]) == 1):
+            arglist[1:3] = ["-", "y"] if (M[0, 1] < 0) else ["+" if first else "", "y"]
+        elif (len(Y.terms()) == 1):
+            arglist[1:3] = ["-", latex(-M[0, 1])+"y"] if (Y.terms()[0][1] < 0) else ["+", latex(M[0, 1])+"y"]
+        else:
+            arglist[1:3] = ["+" if first else "", f"({latex(M[0, 1])})y"]
+        if (M[0, 1] != 0): first = True
+        Z = Poly(M[0, 2], a)
+        if (M[0, 2] == 0): pass
+        elif (abs(M[0, 2]) == 1):
+            arglist[3:5] = ["-", "z"] if (M[0, 2] < 0) else ["+" if first else "", "z"]
+        elif (len(Z.terms()) == 1):
+            arglist[3:5] = ["-", latex(-M[0, 2])+"z"] if (Z.terms()[0][1] < 0) else ["+", latex(M[0, 2])+"z"]
+        else:
+            arglist[3:5] = ["+" if first else "", f"({latex(M[0, 2])})z"]
+        return "&".join(arglist)
+
+    def print_matrix(M):
+        return "\\\\".join([row(M[r, :]) for r in range(shape(M)[0])])
+
+    def print_sys(M):
+        temp = print_matrix(M)
+        return rf"\begin<<cases>>\begin<<array>><<rrrrrrr>>{temp}\end<<array>>\end<<cases>>"
+
+
+    def print_det(M):
+        return rf"\left|{latex(M)[6:-7]}\right|"
+
+    def print_aug(M):
+        return rf"\left(\begin<<array>><<ccc|c>>{latex(M)[6+14:-7-12]}\end<<array>>\right)"
+
+    def row_reduce(h0):
+        # "row reduction"
+        h = h0[:, :]
+        if not (h[0, 0] == 0 and h[1, 0] == 0 and h[2, 0]): # if first row all 0, then we don't need to row reduce
+            if (h[0, 0] == 0): 
+                if h[1, 0] == 0: swap(h, 0, 2) # we made sure that h[2, 0] is not 0
+                else: swap(h, 0, 1)
+            if h[1, 0] != 0: h[1, :] = - h[1, 0] * h[0, :] + h[0, 0] * h[1, :]
+            if h[2, 0] != 0: h[2, :] = - h[2, 0] * h[0, :] + h[0, 0] * h[2, :]
+        if not (h[1, 1] == 0 and h[2, 1] == 0): 
+            if h[1, 1] == 0: swap(h, 1, 2)
+            if h[2, 1] != 0: h[2, :] = - h[1, 1] * h[2, :] + h[2, 1] * h[1, :]
+        elif not (h[1, 2] == 0 and h[2, 2] == 0):
+            if h[1, 2] == 0: swap(h, 1, 2)
+            if h[2, 2] != 0: h[2, :] = - h[1, 2] * h[2, :] + h[2, 2] * h[1, :]
+        return h
+    #-------------------------------------------------------------------------------------
+
+    # MAIN FUNCTION
     while True:
         # generate lhs
         while True:
@@ -88,8 +92,9 @@ def system_of_eq():
             M = diag(*([a - root for root in roots] + [random.choice([1, -1])]))
             M[2, :2] = [random.sample(range(-5, 6), k=2)]
             M[1, 0] = random.randint(-1, 1) + random.choices([3, M[0, 0], a**2], weights=[0.45, 0.45, 0.1])[0]
-            M[0, :] = M[0, :] - M[2, :]
-            M[1, :] = M[1, :] + M[2, :]
+            coeffs = random.sample([-4, -3, -2, -1, 1, 2, 3, 4, 5], k=2)
+            M[0, :] = M[0, :] + coeffs[0] * M[2, :]
+            M[1, :] = M[1, :] + coeffs[1] * M[2, :]
             for _ in range(10):
                 p = random.random() 
                 if (p < 0.2): swap(M, 1, 2)
@@ -257,6 +262,7 @@ z&=\dfrac<<{print_det(Dz)}>><<\Delta>>=\dfrac<<{latex(Dz.det())}>><<\Delta>>\\
         d_sys[b_idx, :] = d_sys[b_idx, :] * fraction(d_b)[1]
         for i in range(3):
             if (d_sys[i, 0].is_real and d_sys[i, 0] < 0): d_sys[i, :] = - d_sys[i, :]
+            d_sys[i, :] /= np.gcd.reduce(list(d_sys[i, :]))
         d_sols = [X.subs(b, d_b) for X in sol[d_idx][1]]
 
         def generate():
@@ -293,6 +299,8 @@ Hence, the {'greatest' if (d_sub_expr.coeff(t, n=2) < 0) else 'least'} value of 
         e_sys = M.subs(a, roots[e_idx]).col_insert(3, rhs)
         for i in range(3):
             if (e_sys[i, 0].is_real and e_sys[i, 0] < 0): e_sys[i, :] = - e_sys[i, :]
+            if (i != b_idx):
+                e_sys[i, :] /= np.gcd.reduce(list(e_sys[i, :]))
         e_sols = sol[e_idx][1]
 
         def generate():
@@ -341,6 +349,7 @@ or ${latex(e_disc)}\geq0$
         f_sys[b_idx, :] = f_sys[b_idx, :] * fraction(f_b)[1]
         for i in range(3):
             if (f_sys[i, 0].is_real and f_sys[i, 0] < 0): f_sys[i, :] = - f_sys[i, :]
+            f_sys[i, :] /= np.gcd.reduce(list(f_sys[i, :]))
         f_sols = [X.subs(b, f_b) for X in sol[f_idx][1]]
         f_basis = min([[X.subs(t, t_rand) for X in sol[f_idx][1]] for t_rand in [int(random.gauss(mu=0, sigma=15)) for _ in range(10)]], key=lambda x: fraction(sum(x))[1]) # generate quadratic equation above this
         def generate():
