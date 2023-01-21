@@ -1,5 +1,74 @@
 {% extends 'base-template.html' %}
 
 {% block content %}
-<h1>Projects!</h1>
+<h1>Projects</h1>
+<h4>Count: {{ count }}</h4>
+{% if enable_editing %}
+<a href = '/projects/create' style="margin-right: 5px; color: green">Create</a>
+{% endif %}
+<div class="projects">
+    {% for post in posts %}
+    <div onclick="location.href = '/projects/{{ post['post_id'] }}'" class="project" >
+        <img src="/static/assets/projects/{{ post['icon'] }}" class="icon">
+        <div class="content">
+            <div class="title">{{ post['title'] }}</div>
+            <div class="desc">{{ post['desc'] }}</div>
+            <div class="date">{{ post['date'] }}</div>
+            <div class="tags">{{ post['tags'] }}</div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+</div>
+
+<!-- 
+<a class="project" href="project-template">
+    <img src="/static/assets/projects/fudicial-icon.jpeg" class="icon">
+    <div class="content">
+        <div class="title">Fudicial Tag Positioning</div>
+        <div class="desc">Robot positioning using QR code-like fudicial tags.</div>
+        <div class="date">March 2022 - April 2022</div>
+        <div class="tags">image processing, robot positioning, apriltags, robocon</div>
+    </div>
+</a>
+<a class="project" href="project-template">
+    <img src="/static/assets/projects/fudicial-icon.jpeg" class="icon">
+    <div class="content">
+        <div class="title">Fudicial Tag Positioning</div>
+        <div class="desc">Robot positioning using QR code-like fudicial tags.</div>
+        <div class="date">March 2022 - April 2022</div>
+        <div class="tags">image processing, robot positioning, apriltags, robocon</div>
+    </div>
+</a>
+<a class="project" href="project-template">
+    <img src="/static/assets/projects/fudicial-icon.jpeg" class="icon">
+    <div class="content">
+        <div class="title">Fudicial Tag Positioning</div>
+        <div class="desc">Robot positioning using QR code-like fudicial tags.</div>
+        <div class="date">March 2022 - April 2022</div>
+        <div class="tags">image processing, robot positioning, apriltags, robocon</div>
+    </div>
+</a>
+
+Air Drums
+Portable air drumsticks with music player.
+October 2022 - December 2022
+embedded systems, audio, data processing
+
+Question Generator
+Exam-style mathematics question generator for HKDSE students.
+January 2022
+python, web development, mathematics
+
+The Becoming of a Mathematician
+Mathematics educational RPG game for HKDSE students.
+January 2020 - July 2020
+python, pygame, mathematics, game, networking
+
+ -->
+
+
+
+
 {% endblock %}

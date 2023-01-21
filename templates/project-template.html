@@ -1,0 +1,32 @@
+{% extends 'base-template.html' %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/showdown@1.8.6/dist/showdown.min.js" ></script>
+{% endblock %} 
+
+{% block content %}
+<div class="header">
+    <div>
+        <h1 class="title">{{ get['title'] }}</h1>
+        <p class="desc">{{ get['desc'] }}</p>
+        <div class="date">{{ get['date'] }}</div>
+        <div class="tags">{{ get['tags'] }}</div>
+        <br>
+        {% if enable_editing %}
+        <a style="padding: 3px 6px; border-radius: 3px; margin-right: 5px;  border:1px solid #30343F; color: #007bff" href="/projects/{{ get['post_id'] }}/edit">Edit</a>
+        <a style="padding: 3px 6px; border-radius: 3px; margin-right: 5px;  border:1px solid #30343F; color: red" href="/projects/{{ get['post_id'] }}/delete" onclick="return confirm('Delete?');">Delete</a>
+        {% endif %}
+    </div>
+    <img src="/static/assets/projects/{{ get['icon'] }}" class="project-icon">
+</div>
+<hr>
+<div class="content">{{ get['content']|safe }}</div>
+<!-- https://stackoverflow.com/questions/65318395/how-to-render-html-for-variables-in-flask-render-template -->
+
+<script>
+    var converter = new showdown.Converter();
+    const content = document.querySelector('.content');
+    console.log(content.innerHTML)
+    content.innerHTML = converter.makeHtml(content.innerHTML);
+</script>
+{% endblock %}

@@ -1,0 +1,145 @@
+a, a > * {
+    color: black;
+    text-decoration: none!important;
+}
+
+.pathname > .section:first-of-type {
+    color: #EA638C;
+    margin-left: 0px;
+}
+
+.pathname > .section {
+    color: #EA638C;
+    margin: 0px 6px;
+}
+
+.pathname > .section:hover {
+    color: #89023E;
+}
+
+#main-nav {
+    z-index: 100000;
+}
+
+.nav-item {
+    padding: 0px 10px;
+}
+
+#main-nav {
+    padding: 20px;
+    position: sticky;
+    top: 0;
+}
+
+#site-name-wrapper {
+    /* border: 1px solid white; */
+    margin: 0px 3px;
+    padding: 0px 6px;
+    /* width: fit-content; */
+    display: flex; /* i'm not sure why but these are important */
+    justify-content: center;
+    align-items: center;
+}
+
+#site-name {
+    --blur-radius: 1px;
+
+    /* BASIC TEXT SETUP */
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    overflow: hidden;
+    line-height: 100%;
+    z-index: 9999999; /* "bring to front */
+
+    position: relative; /* this too, or else width: 50% won't work */
+    font-size: 3em;
+    font-family: 'Courier New', Courier, monospace;
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    font-weight: 900; /* bold = 700 */
+    /* color: white; */
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: none;
+    color: transparent;
+    /* border: 1px solid yellow; */
+
+}
+
+#site-name:hover, #site-name:visited, #site-name:link, #site-name:active {
+    text-decoration: none;
+}
+
+/* https://blog.logrocket.com/understanding-min-content-max-content-fit-content-css/ */
+#site-name:after {
+    padding: 0px;
+    margin: 0px;
+    /* width: 50%; */
+    text-align: left;
+    top: 0;
+    left: 0;
+
+    content: "Rainbows";
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+
+    /* https://webkit.org/blog/1424/css3-gradients/ */
+    /* https://www.w3schools.com/css/css3_gradients.asp */
+    background: linear-gradient(to left, rgba(222,168,248,1) 0%, rgba(168,222,258,1) 21.9%, rgba(189,250,205,1) 35.6%, rgba(243,250,189,1) 53.9%, rgba(250,227,189,1) 66.8%, rgba(248,172,171,1) 95%, rgba(254,170,212,1) 99.9%);
+    -webkit-background-clip: text;
+    color: transparent;
+
+    border-right: 3px solid gray;
+    animation:
+        type 3s linear infinite,
+        blink-caret .75s step-end infinite;
+}
+
+#site-name:before {
+    padding: 0px;
+    margin: 0px;
+    /* width: 50%; */
+    text-align: left;
+    top: 0;
+    left: 0;
+
+    content: "Rainbows";
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+
+    /* https://webkit.org/blog/1424/css3-gradients/ */
+    /* https://www.w3schools.com/css/css3_gradients.asp */
+    background: linear-gradient(to left, rgba(222,168,248,1) 0%, rgba(168,222,258,1) 21.9%, rgba(189,250,205,1) 35.6%, rgba(243,250,189,1) 53.9%, rgba(250,227,189,1) 66.8%, rgba(248,172,171,1) 95%, rgba(254,170,212,1) 99.9%);
+    -webkit-background-clip: text;
+    color: transparent;
+
+    animation:
+        type 3s linear infinite;
+    /* filter: blur(var(--blur-radius)); */
+    transition: filter 0.3s ease-out;
+}
+
+#site-name:hover:before {
+    filter: blur(2px);
+}
+
+@keyframes type {
+    0% {content: "R"; width:min-content}
+    10% {content: "Ra"}
+    20% {content: "Rai"}
+    30% {content: "Rain"}
+    40% {content: "Rainb"}
+    50% {content: "Rainbo"}
+    60% {content: "Rainbow"}
+    70% {content: "Rainbows"; width:min-content}
+    90% {width: 100%;}
+    100% {width: 10%;}
+}
+
+@keyframes blink-caret {
+    from, to {border-color: transparent;}
+    50% {border-color: gray;}
+}

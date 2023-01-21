@@ -1,0 +1,27 @@
+{% extends 'base-template.html' %}
+
+{% block head %}
+<script src="https://cdn.jsdelivr.net/npm/showdown@1.8.6/dist/showdown.min.js" ></script>
+{% endblock %} 
+
+{% block content %}
+<div class="header">
+    <div>
+        <h1 class="title">Fudicial Tag Positioning</h1>
+        <p class="desc">Robot positioning using QR code-like fudicial tags.</p>
+        <div class="date">March 2022 - April 2022</div>
+        <div class="tags">Image Processing, Robot Positioning, Robotics</div>
+    </div>
+    <img src="/static/assets/projects/fudicial-icon.jpeg" class="project-icon">
+</div>
+
+<div class="content">
+In the HKUST Robotics Team, I helped develop a robot positioning system using [AprilTags](https://april.eecs.umich.edu/software/apriltag), which are QR code-like fudicial tags. By sticking AprilTags on the robot and using OpenCV and numpy to process camera footage, we could obtain the robot's coordinates relative to the game field.
+</div>
+
+<script>
+    var converter = new showdown.Converter();
+    const content = document.querySelector('.content');
+    content.innerHTML = converter.makeHtml(content.innerHTML);
+</script>
+{% endblock %}

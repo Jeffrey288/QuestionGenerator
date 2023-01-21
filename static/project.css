@@ -1,0 +1,118 @@
+.date::before {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    content: "\f073";
+    color: grey;
+    margin-right: 12px;
+}
+
+.tags::before {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    content: "\f02c";
+    color: grey;
+    margin-right: 12px;
+    padding-top: 3px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: flex-start;
+    row-gap: 3px;
+}
+
+.tags > .tag {
+    border: 1.4px solid grey;
+    border-radius: 9px 0 9px;
+    padding: 0px 6px;
+    margin-right: 8px;
+    color: grey;
+}
+
+.tags > .tag:hover {
+    color: #89023E;
+}
+
+*:has(> .project-icon) {
+    position: relative;
+}
+
+.project-icon {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+/* ------- */
+
+.projects {
+
+}
+
+.projects > .project {
+    display: grid;
+    /* grid-template-columns: auto auto auto; */
+    border: 1px solid #C0C0C0;
+    border-radius: 10px;
+    column-gap: 15px;
+    grid-template-columns: 150px auto;
+    padding: 15px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.projects > .project:hover {
+    transform: scale(101%);
+}
+
+.project > .icon {
+    grid-column: 1 / 2;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+}
+
+.project > .content {
+    grid-column: 2 / 3
+}
+
+.project > .content > .title {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.project > .content > .desc {
+    font-size: 18px;
+}
+
+.project > .content > .date::before {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    content: "\f073";
+    color: grey;
+    margin-right: 12px;
+}
+
+.project > .content > .date {
+    font-size: 14px;
+    color:grey;
+}
+
+
+
+.project > .content > .tags {
+    font-size: 14px;
+}
+
+.project > .content > .tags::before {
+    margin-right: 12px;
+    padding-top: 3px;
+}
+

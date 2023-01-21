@@ -9,12 +9,36 @@ MathJax = {
     skipStartupTypeset: true
 };
   
+
+
 const question_type = {
     "Vector Projection": "vector_proj",
     "System of Equations": "system_of_eq"
 }
 $( function() {
-    
+
+    document.documentElement.setAttribute("data-theme", "dark");
+
+    const tag_sections = document.querySelectorAll(".tags");
+    tag_sections.forEach(function (tag_section) {
+        var tags = tag_section.innerHTML.split(",");
+        tag_section.innerHTML = tags.map((tag) => `<a class='tag' href='#'>${tag}</a>`).join("")
+    })
+
+    const pathname = window.location.pathname;
+    console.log(pathname);
+    if (pathname != "/") {
+        const sections = pathname.split('/').slice(1);
+        console.log(sections)
+        var path = "";
+        const tags = [];
+        for (var i = 0; i < sections.length; i++) {
+            path += "/" + sections[i];
+            tags.push(`<a class="section" href="${path}">${sections[i]}</a>`);
+        }
+        document.querySelector('.pathname').innerHTML = "<a class='section' href='/'>home</a>/" + tags.join("/");
+    }
+
     qna_template = document.querySelector("#qna-template");
     $('button#gen-q-btn').on('click', function(e) {
         selection = document.querySelector("#select-question-type > .dropdown-toggle").innerHTML;
