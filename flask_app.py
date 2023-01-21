@@ -62,7 +62,8 @@ def projects_template():
 @app.route('/projects')
 def list_projects():
     posts = projects_db.find({}, {"content": 0})
-    return render_template('projects.html', posts=posts, count=posts.count(), enable_editing=config.enable_editing)
+    count = projects_db.count_documents({})
+    return render_template('projects.html', posts=posts, count=count, enable_editing=config.enable_editing)
 
 @app.route('/projects/<string:post_id>')
 def display_project(post_id):
