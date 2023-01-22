@@ -12,7 +12,9 @@ import pymongo
 import config
 print(pymongo.version)
 
-client = pymongo.MongoClient(f"mongodb+srv://{config.db_username}:{config.db_password}@cluster0.a6atwar.mongodb.net/?retryWrites=true&w=majority")
+# https://help.pythonanywhere.com/pages/MongoDB
+client = pymongo.MongoClient(f"mongodb+srv://{config.db_username}:{config.db_password}@cluster0.a6atwar.mongodb.net/?retryWrites=true&w=majority", \
+    connectTimeoutMS=30000, socketTimeoutMS=None, connect=False, maxPoolsize=1)
 db = client.website
 projects_db = db.projects
 # projects.create_index('post_id', unique=True)
@@ -62,8 +64,8 @@ def projects_template():
 @app.route('/projects')
 def list_projects():
     posts = projects_db.find({}, {"content": 0})
-    # count = projects_db.count_documents({})
-    return render_template('projects.html', posts=posts, count=0, enable_editing=config.enable_editing)
+    count = projects_db.count_documents({})
+    return render_template('projects.html', posts=posts, count=count, enable_editing=config.enable_editing)
 
 @app.route('/projects/<string:post_id>')
 def display_project(post_id):
