@@ -111,7 +111,7 @@ $(function () {
                 var file = item.getAsFile();
                 img_link = upload_img_clipboard(file);
                 editor.session.insert(editor.getCursorPosition(),
-                    `<center><img src="/static/assets/projects/${img_link}" width="700px"  height='500px' style="object-fit:contain;"></center>`);
+                    `<center><img src="/static/assets/projects/${img_link}" style="object-fit:contain;max-width:700px;max-height:500px;"></center>`);
                 console.log(img_link)
             } else if (item.type == 'text/plain') {
                 item.getAsString(
