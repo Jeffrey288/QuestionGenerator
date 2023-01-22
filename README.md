@@ -2,6 +2,11 @@
 
 Running instance: http://jeffrey288.pythonanywhere.com/
 
+To generate requirements,
+```bash
+pipreqs --encoding=utf8 --force
+```
+
 ### List of features that I want to add
 Note 1: no, i'm not using issues because it's freaking annoying \
 Note 2: i'm planning to do 1 per day as an exercise to expand my website

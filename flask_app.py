@@ -12,6 +12,7 @@ import pymongo
 import config
 print(pymongo.version)
 
+# https://www.mongodb.com/community/forums/t/secure-way-to-connect-to-mongodb-atlas-from-pythonanywhere/14323/3
 # https://help.pythonanywhere.com/pages/MongoDB
 client = pymongo.MongoClient(f"mongodb+srv://{config.db_username}:{config.db_password}@cluster0.a6atwar.mongodb.net/?retryWrites=true&w=majority", \
     connectTimeoutMS=30000, socketTimeoutMS=None, connect=False, maxPoolsize=1)
@@ -72,16 +73,20 @@ def display_project(post_id):
     # print(post_id)
     # print('heyyyy')
     pages = projects_db.find({'post_id': post_id})
-    if pages.count() == 0:
+    try:
+        page = pages[0]
+    except:
         abort(404)
     # print(pages[0])
-    return render_template('project-template.html', get=pages[0], enable_editing=config.enable_editing)
+    return render_template('project-template.html', get=page, enable_editing=config.enable_editing)
 
 @app.route('/projects/<string:post_id>/edit', methods=('GET', 'POST'))
 def edit_project(post_id):
     if config.enable_editing: 
         pages = projects_db.find({'post_id': post_id})
-        if pages.count() == 0:
+        try:
+            page = pages[0]
+        except:
             abort(404)
         if request.method == "POST":
             # print("THE FORM", request.form)
@@ -89,7 +94,7 @@ def edit_project(post_id):
             if (request.form.get('title', '') == ''):
                 # flash('Title is required!')
                 print("something", request.form.get('title', ''))
-                return render_template('project-editor.html', get=pages[0])
+                return render_template('project-editor.html', get=page)
             projects_db.update_one({'post_id': post_id}, {
                 "$set": {
                     'title': request.form.get('title', ''),
@@ -104,7 +109,7 @@ def edit_project(post_id):
             return redirect(url_for('display_project', post_id=post_id))
             # return redirect(url_for('index'))
         else:
-            return render_template('project-editor.html', get=pages[0])
+            return render_template('project-editor.html', get=page)
     else:
         abort(403)
 
@@ -128,7 +133,7 @@ def create_project():
                 return render_template('project-editor.html', get={})
             post_id = "-".join(request.form.get('title', '').strip().split(" ")).lower()
             suffix = ""
-            while (projects_db.find({'post_id': post_id + suffix}).count() != 0 and post_id+suffix != "create"):
+            while (projects_db.count_documents({'post_id': post_id + suffix}) != 0 and post_id+suffix != "create"):
                 suffix = ''.join(random.choices(string.ascii_lowercase+string.digits, k=6))
             post_id = post_id + suffix
             projects_db.insert_one({
