@@ -30,7 +30,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    posts = projects_db.find({}, {"content": 0})
+    return render_template('index.html', posts=posts)
 
 def allowed_file(filename):
     return '.' in filename and \

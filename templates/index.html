@@ -2,5 +2,20 @@
 
 {% block content %}
 <h1>Homepage!</h1>
-<p>I am a retard!</p>
+Welcome to my website! Take a look at my projects!
+<hr>
+<h2>Projects</h2>
+<div class="mini-projects">
+    {% for post in posts %}
+    <hr class="mini-projects-rule">
+    <div onclick="location.href = '/projects/{{ post['post_id'] }}'" class="project" >
+        <img src="/static/assets/projects/{{ post['icon'] }}" class="icon">
+        <div class="content">
+            <div class="title">{{ post['title'] }}</div>
+            <div class="desc">{{ post['desc'] }}</div>
+        </div>
+    </div>
+    {% endfor %}
+    <hr class="mini-projects-rule">
+</div>
 {% endblock %}
