@@ -89,10 +89,10 @@ $$\begin<<aligned>>
             "a2": rf"""
 **Answer**: ${printVec(D-A)}$
 
-$\vec<<ED>>$ is the projection of $\vec<<AE>>$ on $\vec<<AB>>\times\vec<<BC>>$, so
+$\vec<<ED>>$ is the projection of $\vec<<AD>>$ on $\vec<<AB>>\times\vec<<BC>>$, so
 $$\begin<<aligned>>
-\vec<<ED>> &= \dfrac<<\vec<<AE>>\cdot\left(\vec<<AB>>\times\vec<<BC>>\right)>><<\left|\vec<<AB>>\times\vec<<BC>>\right|^2>>\left(\vec<<AB>>\times\vec<<BC>>\right) \\
-&= \dfrac<<({int((D-A)[0])})({cross[0]})+({int((D-A)[1])})({cross[1]})+({int((D-A)[2])})({cross[2]})>><<{printSquare(cross[0])}+{printSquare(cross[1])}+{printSquare(cross[2])}>>({printVec(cross)}) \\
+\vec<<ED>> &= \dfrac<<\vec<<AD>>\cdot\left(\vec<<AB>>\times\vec<<BC>>\right)>><<\left|\vec<<AB>>\times\vec<<BC>>\right|^2>>\left(\vec<<AB>>\times\vec<<BC>>\right) \\
+&= \dfrac<<({int((E-A)[0])})({cross[0]})+({int((E-A)[1])})({cross[1]})+({int((E-A)[2])})({cross[2]})>><<{printSquare(cross[0])}+{printSquare(cross[1])}+{printSquare(cross[2])}>>({printVec(cross)}) \\
 &= {printVec(E-D)}
 \end<<aligned>>$$ 
 Hence,
